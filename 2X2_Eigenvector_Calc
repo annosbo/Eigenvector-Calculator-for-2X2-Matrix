@@ -1,0 +1,78 @@
+#include <iostream>
+#include <string>
+
+
+int main() {
+
+//establishing variables to use in the 2 x 2 matrix
+double a;
+double b;
+double c;
+double d;
+
+//Asking the user to input the values of thier matrix [Matrix A]
+std::cout << "What are the values of your 2X2 matrix?: \n";
+std::cout << "[a , b]\n";
+std::cout << "[c , d]\n";
+std::cout << "enter in the order of a , b , c , d\n";
+std::cin >> a >> b >> c >> d;
+
+//When you multiply out the A - lamdaI matrix
+double A = 1;
+double B = -(a + d);
+double C = (a * d) - (b * c);
+
+// solving for lamda1 (the first eigenvector) using the quadratic formula
+double lamda1 = (-B + sqrt(B*B - 4*A*C)) / (2*A) ;
+double lamda2 = (-B - sqrt(B*B - 4*A*C)) / (2*A) ;
+
+//The resulting A - lamdaI vlaues in the slots where a - lamda and d - lamda
+double e = a - lamda1;
+double f = d - lamda2;
+
+/* then the matrix becomes [e , b]
+                           [c , f]  with is the [A - (lamda)I] * Kvector = Zerovector*/
+
+double x1;
+double y1;
+
+
+//When solving for the values of the eigenvectors, not all methods will work if the denomator is 0 when solving so we need to make different conditions of that case presents itself
+if (b != 0) {
+    x1 = 1;
+    y1 = -(a - lamda1) / b;
+
+}
+else {
+    y1 = 1;
+    x1 = -(d - lamda1) / c;
+}
+
+//output for eigenvector 1
+std::cout << "Eigenvector 1: \n";
+std::cout << "[ " << x1 << " ]\n";
+std::cout << "[ " << y1 << " ]\n";
+
+
+double x2;
+double y2;
+
+//same conditions as the other if/else above but for eigenvector 2 values
+if(b != 0) {
+    x2 = 1;
+    y2 = -(a - lamda2) / b;
+}
+else {
+    y2 = 1;
+    x2 = -(d - lamda2) / c;
+}
+
+//output the eigenvector 2
+std::cout << "Eigenvector 2: \n";
+std::cout << "[ " << x2 << " ]\n";
+std::cout << "[ " << y2 << " ]\n";
+
+return 0;
+}
+
+
